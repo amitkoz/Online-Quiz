@@ -14,8 +14,10 @@ let questionCounter = 0;
 let availableQuestions = [];
 let questionTimeout = null;
 let questions = [];
+let span = document.getElementById('time');
 
 
+// decode HTML entities to applicable characters
 castString = (string) => {
     let ans = string.split('&quot;').join('"');
     ans = ans.split('&#039;').join('\'');
@@ -27,20 +29,21 @@ castString = (string) => {
 
 };
 
+// FETCH
 fetch("https://opentdb.com/api.php?amount=100")
     .then(res => {
         return res.json();
     })
     .then(loadedQuestions => {
-        console.log(loadedQuestions.results);
-        questions = loadedQuestions.results.map(loadedQuestion => {
+        console.log(loadedQuestions["results"]);
+        questions = loadedQuestions["results"].map(loadedQuestion => {
             const formattedQuestion = {
                 question: castString(loadedQuestion.question)
             };
 
-            const answerChoices = [...loadedQuestion.incorrect_answers];
+            const answerChoices = [...loadedQuestion["incorrect_answers"]];
             formattedQuestion.answer = Math.floor(Math.random() * 3) + 1;
-            answerChoices.splice(formattedQuestion.answer - 1, 0, loadedQuestion.correct_answer);
+            answerChoices.splice(formattedQuestion.answer - 1, 0, loadedQuestion["correct_answer"]);
 
             answerChoices.forEach((choice, index) => {
                 formattedQuestion["choice" + (index + 1)] = castString(choice);
@@ -54,13 +57,13 @@ fetch("https://opentdb.com/api.php?amount=100")
         console.error(err);
     });
 
-// CONSTANTS 
-const CORRECT_BONUS = 10;
-const MAX_QUESITONS = 5;
-const SECONDS = 5;
-const LOWSCORE_MSG = "Not bad,\n next time try harder!";
-const MIDSCORE_MSG = "Almost a champion,\n another little effort!";
-const HIGHSCORE_MSG = "Congratulations!";
+// CONSTANTS
+const CORRECT_BONUS = 20;
+const MAX_QUESTIONS = 10;
+const SECONDS = 15;
+const LOW_SCORE_MSG = "Not bad,\n next time try harder!";
+const MID_SCORE_MSG = "Almost a champion,\n an additional little effort!";
+const HIGH_SCORE_MSG = "Congratulations!";
 
 startGame = () => {
     questionCounter = 0;
@@ -81,26 +84,24 @@ getNewQuestion = () => {
     bool2.style.visibility = 'visible';
 
 
-    if (availableQuestions.length === 0 || questionCounter >= MAX_QUESITONS) {
+    if (availableQuestions.length === 0 || questionCounter >= MAX_QUESTIONS) {
         localStorage.setItem('mostRecentScore', score.toFixed(2));
-        if(score==0){
-            localStorage.setItem('scoreMsg', LOWSCORE_MSG); // today
-        }
-        else if(score<MAX_QUESITONS*CORRECT_BONUS){
-            localStorage.setItem('scoreMsg', MIDSCORE_MSG); // today
-        }
-        else{ //score>=MAX_QUESITONS*CORRECT_BONUS
-            localStorage.setItem('scoreMsg', HIGHSCORE_MSG); // today
+        if (score == 0) {
+            localStorage.setItem('scoreMsg', LOW_SCORE_MSG); // today
+        } else if (score < MAX_QUESTIONS * CORRECT_BONUS) {
+            localStorage.setItem('scoreMsg', MID_SCORE_MSG); // today
+        } else { //score>=MAX_QUESTIONS*CORRECT_BONUS
+            localStorage.setItem('scoreMsg', HIGH_SCORE_MSG); // today
         }
 
         // Go to the final page
         return (window.location.assign('end.html'));
     }
     questionCounter++;
-    progressText.innerText = `Question ${questionCounter}/${MAX_QUESITONS}`;
+    progressText.innerText = `Question ${questionCounter}/${MAX_QUESTIONS}`;
 
     // Update the progress bar
-    progressBarFull.style.width = `${(questionCounter / MAX_QUESITONS) * 100}%`;
+    progressBarFull.style.width = `${(questionCounter / MAX_QUESTIONS) * 100}%`;
     // reset the timer
     countdown.init();
     // choose random question (index)
@@ -132,10 +133,12 @@ getNewQuestion = () => {
     countdown.start();//new
 };
 
+// user choose an answer
 choices.forEach(choice => {
     choice.addEventListener('click', e => {
         if (!acceptingAnswers) return;
-        countdown.stop();//new
+        // stop the timer
+        countdown.stop();
         const timeLeft = (countdown.totalTime - countdown.usedTime) / 100;
         acceptingAnswers = false;
         const selectedChoice = e.target;
@@ -143,7 +146,7 @@ choices.forEach(choice => {
 
         const classToApply = selectedAnswer == currentQuestion.answer ? 'correct' : 'incorrect';
 
-        // if user is correct: add to the score CORRECT_BONUS and the timeLeft
+        // if user is correct: add to the score CORRECT_BONUS and the timeLeft (score logic)
         if (classToApply == 'correct') {
             incrementScore(CORRECT_BONUS + timeLeft);
 
@@ -165,6 +168,7 @@ incrementScore = num => {
     scoreText.innerText = score.toFixed(2);
 };
 
+// TIMER COUNTDOWN
 function Countdown(elem, seconds) {
     const that = {};
 
@@ -220,7 +224,7 @@ function Countdown(elem, seconds) {
     return that;
 }
 
-let span = document.getElementById('time');
+
 let countdown = new Countdown(span, SECONDS);
 
 

@@ -1,19 +1,20 @@
 :root {
     font-size: 62.5%;
 }
+
 body {
     background-image: url("images/background2.png");
     font-family: Arial, Helvetica, sans-serif;
-    margin: 0;
-    padding: 0;
 }
-*{
+
+* {
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
     color: #333;
 }
+
 h3 {
     font-size: 4rem;
     color: #f4f7fa;
@@ -22,29 +23,32 @@ h3 {
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: #2f3338;
 }
+
 h4 {
     font-size: 2rem;
     font-weight: 500;
     color: #4a4e57;
 }
 
-.choice-container{
+/* CHOICE */
+
+.choice-container {
     display: flex;
     margin-bottom: 0.5rem;
     width: 100%;
     font-size: 1.8rem;
-    border: 0.1rem solid rgb(86,165,236,0.25);
+    border: 0.1rem solid rgb(86, 165, 236, 0.25);
     background-color: white;
 }
 
-.choice-container:hover{
+.choice-container:hover {
     cursor: pointer;
     box-shadow: 0 0.4rem 1.4rem 0 rgba(86, 185, 235, 0.5);
     transform: translateY(-0.1rem);
     transition: transform 150ms;
 }
 
-.choice-container-bool:hover{
+.choice-container-bool:hover {
     cursor: pointer;
     box-shadow: 0 0.4rem 1.4rem 0 rgba(86, 185, 235, 0.5);
     transform: translateY(-0.1rem);
@@ -87,6 +91,8 @@ h4 {
     text-align: center;
 }
 
+/* PROGRESS */
+
 #progressBar {
     width: 15rem;
     height: 3rem;
@@ -97,10 +103,11 @@ h4 {
 #progressBarFull {
     height: 2.4rem;
     background-color: #56A5EB;
-    width: 0%;
+    width: 0;
 }
 
 /* LOADER */
+
 #loader {
     border: 1.6rem solid white;
     border-radius: 50%;
@@ -110,13 +117,11 @@ h4 {
     animation: spin 2s linear infinite;
 }
 
-@keyframes spin{
+@keyframes spin {
     0% {
         transform: rotate(0deg);
     }
-    100%{
+    100% {
         transform: rotate(360deg);
     }
 }
-
-/*TIMER*/

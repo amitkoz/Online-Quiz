@@ -1,7 +1,7 @@
 h1 {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     color: #56a5eb;
-    -webkit-text-stroke-width: 0px;
+    -webkit-text-stroke-width: 0;
 }
 h4{
     font-size: 2.5rem;
@@ -12,6 +12,8 @@ h4{
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: #2f3338;
 }
+
+/* confetti */
 
 @keyframes confetti-slow {
     0% {
@@ -49,7 +51,7 @@ h4{
     background-image: url("images/background2.png");
     border: 1px solid white;
     display: flex;
-    top: 0px;
+    top: 0;
 }
 
 .confetti-container {
@@ -66,7 +68,7 @@ h4{
     position: absolute;
     z-index: 1;
     top: -10px;
-    border-radius: 0%;
+    border-radius: 0;
 }
 
 .confetti--animation-slow {
@@ -82,8 +84,8 @@ h4{
      }
 
 
-
 /* Checkmark */
+
 .checkmark-circle {
     width: 150px;
     height: 150px;
@@ -128,11 +130,11 @@ h4{
 .checkmark-circle .checkmark:after {
     opacity: 1;
     height: 75px;
-    width: 37.5px;
+    width: 37px;
     transform-origin: left top;
     border-right: 15px solid white;
     border-top: 15px solid white;
-    border-radius: 2.5px !important;
+    border-radius: 2px !important;
     content: "";
     left: 25px;
     top: 75px;
@@ -147,17 +149,17 @@ h4{
     }
     20% {
         height: 0;
-        width: 37.5px;
+        width: 37px;
         opacity: 1;
     }
     40% {
         height: 75px;
-        width: 37.5px;
+        width: 37px;
         opacity: 1;
     }
     100% {
         height: 75px;
-        width: 37.5px;
+        width: 37px;
         opacity: 1;
     }
 }

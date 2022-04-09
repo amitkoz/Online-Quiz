@@ -3,10 +3,12 @@ const saveScoreBtn = document.getElementById("saveScoreBtn");
 const mostRecentScore = localStorage.getItem("mostRecentScore");
 const finalScore = document.getElementById("finalScore");
 const scoreMsg = localStorage.getItem("scoreMsg")
-const endMsg =  document.getElementById("endMsg");
+const endMsg = document.getElementById("endMsg");
 const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 
+// save score
 finalScore.innerText = mostRecentScore;
+// save message according to score
 endMsg.innerText = scoreMsg;
 
 const Confettiful = function (el) {
@@ -19,7 +21,7 @@ const Confettiful = function (el) {
     this._renderConfetti();
 };
 
-
+// input: username (listener)
 username.addEventListener("keyup", () => {
     saveScoreBtn.disabled = !username.value;
 });
@@ -28,16 +30,14 @@ saveHighScore = e => {
     console.log("clicked");
     e.preventDefault();
 
-
     const score = {
-        score: mostRecentScore,
-        name: username.value
+        score: mostRecentScore, name: username.value
     };
 
     highScores.push(score);
 
-// Sorts the array by score
-    highScores.sort( (a,b) => b.score - a.score);
+    // Sorts the array by score
+    highScores.sort((a, b) => b.score - a.score);
 
     highScores.splice(5);
 
@@ -55,28 +55,19 @@ Confettiful.prototype._setupElements = function () {
     }
 
     containerEl.classList.add("confetti-container");
-
     this.el.appendChild(containerEl);
-
     this.containerEl = containerEl;
 };
 
 Confettiful.prototype._renderConfetti = function () {
-    this.confettiInterval = setInterval(() => {
+    setInterval(() => {
         const confettiEl = document.createElement("div");
         const confettiSize = Math.floor(Math.random() * 3) + 7 + "px";
-        const confettiBackground = this.confettiColors[
-            Math.floor(Math.random() * this.confettiColors.length)
-            ];
+        const confettiBackground = this.confettiColors[Math.floor(Math.random() * this.confettiColors.length)];
         const confettiLeft = Math.floor(Math.random() * this.el.offsetWidth) + "px";
-        const confettiAnimation = this.confettiAnimations[
-            Math.floor(Math.random() * this.confettiAnimations.length)
-            ];
+        const confettiAnimation = this.confettiAnimations[Math.floor(Math.random() * this.confettiAnimations.length)];
 
-        confettiEl.classList.add(
-            "confetti",
-            "confetti--animation-" + confettiAnimation
-        );
+        confettiEl.classList.add("confetti", "confetti--animation-" + confettiAnimation);
         confettiEl.style.left = confettiLeft;
         confettiEl.style.width = confettiSize;
         confettiEl.style.height = confettiSize;
