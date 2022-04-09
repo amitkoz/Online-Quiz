@@ -14,7 +14,7 @@ Only the 5 high-scores are displayed.
 
 
 
-[Online trivia game - URL](https://extraordinary-pastelito-b9e67e.netlify.app/)  
+[Online trivia game - URL](https://amazing-frangipane-3a26cf.netlify.app)  
 
 
 

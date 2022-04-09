@@ -2,6 +2,7 @@ h1 {
     margin-bottom: 0.5rem;
     color: #56a5eb;
     -webkit-text-stroke-width: 0;
+    font-size: 3.5rem;
 }
 h4{
     font-size: 2.5rem;
@@ -72,16 +73,16 @@ h4{
 }
 
 .confetti--animation-slow {
-         animation: confetti-slow 2.25s linear 1 forwards;
-     }
+    animation: confetti-slow 2.25s linear 1 forwards;
+}
 
 .confetti--animation-medium {
-         animation: confetti-medium 1.75s linear 1 forwards;
-     }
+    animation: confetti-medium 1.75s linear 1 forwards;
+}
 
 .confetti--animation-fast {
-         animation: confetti-fast 1.25s linear 1 forwards;
-     }
+    animation: confetti-fast 1.25s linear 1 forwards;
+}
 
 
 /* Checkmark */
